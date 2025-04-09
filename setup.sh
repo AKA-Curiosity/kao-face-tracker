@@ -44,8 +44,15 @@ deploy_project() {
         echo "Создание директории $DEST_DIR..."
         mkdir -p "$DEST_DIR"
 
-        echo "Копирование файлов проекта (кроме ненужных)..."
-        rsync -av --exclude='.git' --exclude='setup.sh' --exclude='.gitignore' --exclude='LICENSE' ./ "$DEST_DIR"
+        echo "Копирование файлов проекта (кроме setup.sh, .git, .gitignore и LICENSE)..."
+
+        for file in * .*; do
+            # Пропускаем скрытые директории и файлы, которые не нужны
+            [[ "$file" == "." || "$file" == ".." ]] && continue
+            [[ "$file" == ".git" || "$file" == ".gitignore" || "$file" == "LICENSE" || "$file" == "setup.sh" ]] && continue
+
+            cp -r "$file" "$DEST_DIR/" 2>/dev/null
+        done
 
         echo "Проект успешно развернут в $DEST_DIR"
     fi
