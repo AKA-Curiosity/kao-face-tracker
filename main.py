@@ -75,7 +75,7 @@ def run_face_detection():
     cv2.destroyAllWindows()
 
 
-### Функции, используемые в run_face_detection ###
+### Функции, используемый в run_face_detection ###
 
 def highlightFace(face_net, frame, prediction, conf_threshold=0.7):
     output_frame = frame.copy()
