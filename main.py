@@ -227,20 +227,20 @@ def update_files(remote_version):
         LOCAL_VERSION_FILE,
     ]
     for file in files_to_update:
-        remote_url = GITHUB_FILES_BASE_URL + file
-        try:
-            response = requests.get(remote_url, timeout=5)
-            if response.status_code == 200:
-                dir_name = os.path.dirname(file)
-                if dir_name:
-                    os.makedirs(dir_name, exist_ok=True)
-                with open(file, "wb") as f:
-                    f.write(response.content)
-                print(f"Файл {file} обновлён.")
-            else:
-                print(f"Не удалось обновить файл {file}, статус {response.status_code}.")
-        except Exception as e:
-            print(f"Ошибка при обновлении {file}:", e)
+    remote_url = GITHUB_FILES_BASE_URL + file
+    try:
+        response = requests.get(remote_url, timeout=5)
+        if response.status_code == 200:
+            dir_name = os.path.dirname(file)
+            if dir_name:
+                os.makedirs(dir_name, exist_ok=True)
+            with open(file, "wb") as f:
+                f.write(response.content)
+            print(f"Файл {file} обновлён.")
+        else:
+            print(f"Не удалось обновить файл {file}, статус {response.status_code}.")
+    except Exception as e:
+        print(f"Ошибка при обновлении {file}:", e)
 
 ### Главная функция ###
 def main():
