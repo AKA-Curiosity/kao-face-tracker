@@ -34,27 +34,27 @@ setup_environment() {
 
 # Развертывания проекта
 deploy_project() {
-    echo "Развёртывание проекта в текущую папку..."
+    echo "Развёртывание проекта из репозитория GitHub..."
 
+    REPO_URL="https://github.com/AKA-Curiosity/kao-face-tracker.git"
     DEST_DIR="$(pwd)/kao-face-tracker"
 
+    # Проверяем, если проект уже клонирован
     if [ -d "$DEST_DIR" ]; then
         echo "Проект уже развернут в $DEST_DIR"
     else
-        echo "Создание директории $DEST_DIR..."
-        mkdir -p "$DEST_DIR"
+        # Клонируем репозиторий
+        git clone "$REPO_URL" "$DEST_DIR"
+        echo "Проект успешно клонирован в $DEST_DIR"
 
-        echo "Копирование файлов проекта (кроме setup.sh, .git, .gitignore и LICENSE)..."
+        # Удаляем ненужные файлы
+        echo "Удаляем ненужные файлы..."
+        rm -f "$DEST_DIR/setup.sh"
+        rm -f "$DEST_DIR/LICENSE"
+        rm -f "$DEST_DIR/.gitignore"
+        rm -rf "$DEST_DIR/.git"
 
-        for file in * .*; do
-            # Пропускаем скрытые директории и файлы, которые не нужны
-            [[ "$file" == "." || "$file" == ".." ]] && continue
-            [[ "$file" == ".git" || "$file" == ".gitignore" || "$file" == "LICENSE" || "$file" == "setup.sh" ]] && continue
-
-            cp -r "$file" "$DEST_DIR/" 2>/dev/null
-        done
-
-        echo "Проект успешно развернут в $DEST_DIR"
+        echo "Ненужные файлы удалены"
     fi
 }
 
