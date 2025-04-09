@@ -52,7 +52,7 @@ def run_face_detection():
     cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
     prediction = random.choice(predictions)
-    # Запускаем слушателя мыши
+
     listener = setup_listeners()
 
     while True:
@@ -107,7 +107,7 @@ def highlightFace(face_net, frame, prediction, conf_threshold=0.7):
                 text_x = max(0, min(text_x, frame_w - text_size[0]))
                 text_y = max(text_size[1], min(text_y, frame_h - baseline))
                 cv2.putText(output_frame, prediction, (text_x, text_y),
-                            cv2.FONT_HERSHEY_COMPLEX, font_scale, (255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
+                            cv2.FONT_HERSHEY_COMPLEX, font_scale, (0, 0, 0), thickness=1, lineType=cv2.LINE_AA)
     return output_frame, face_boxes
 
 
@@ -227,20 +227,20 @@ def update_files(remote_version):
         LOCAL_VERSION_FILE,
     ]
     for file in files_to_update:
-    remote_url = GITHUB_FILES_BASE_URL + file
-    try:
-        response = requests.get(remote_url, timeout=5)
-        if response.status_code == 200:
-            dir_name = os.path.dirname(file)
-            if dir_name:
-                os.makedirs(dir_name, exist_ok=True)
-            with open(file, "wb") as f:
-                f.write(response.content)
-            print(f"Файл {file} обновлён.")
-        else:
-            print(f"Не удалось обновить файл {file}, статус {response.status_code}.")
-    except Exception as e:
-        print(f"Ошибка при обновлении {file}:", e)
+        remote_url = GITHUB_FILES_BASE_URL + file
+        try:
+            response = requests.get(remote_url, timeout=5)
+            if response.status_code == 200:
+                dir_name = os.path.dirname(file)
+                if dir_name:
+                    os.makedirs(dir_name, exist_ok=True)
+                with open(file, "wb") as f:
+                    f.write(response.content)
+                print(f"Файл {file} обновлён.")
+            else:
+                print(f"Не удалось обновить файл {file}, статус {response.status_code}.")
+        except Exception as e:
+            print(f"Ошибка при обновлении {file}:", e)
 
 ### Главная функция ###
 def main():
