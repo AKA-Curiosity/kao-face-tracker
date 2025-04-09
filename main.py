@@ -231,7 +231,9 @@ def update_files(remote_version):
         try:
             response = requests.get(remote_url, timeout=5)
             if response.status_code == 200:
-                os.makedirs(os.path.dirname(file), exist_ok=True)
+                dir_name = os.path.dirname(file)
+                if dir_name:
+                    os.makedirs(dir_name, exist_ok=True)
                 with open(file, "wb") as f:
                     f.write(response.content)
                 print(f"Файл {file} обновлён.")
@@ -239,8 +241,6 @@ def update_files(remote_version):
                 print(f"Не удалось обновить файл {file}, статус {response.status_code}.")
         except Exception as e:
             print(f"Ошибка при обновлении {file}:", e)
-    print("Обновление завершено.")
-
 
 ### Главная функция ###
 def main():
