@@ -47,3 +47,20 @@ deploy_project() {
         cd ..
     fi
 }
+
+# Основной блок
+main() {
+    check_internet
+    check_requirements
+    setup_environment
+    deploy_project
+
+    echo "======================================"
+    echo "✅ Развертывание завершено!"
+    echo "Папка проекта 'kao-face-tracker' готова для работы."
+    echo "Далее запустите setup.py для дополнительной настройки:"
+    echo "   cd kao-face-tracker && python3 setup.py"
+    echo "======================================"
+}
+
+main
