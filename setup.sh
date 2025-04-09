@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Функция проверки доступа к интернету
 check_internet() {
     echo "Проверка доступа к интернету..."
     # Для Windows используем флаг -n
@@ -12,20 +11,18 @@ check_internet() {
     fi
 }
 
-# Функция проверки технических требований
 check_requirements() {
     echo "Проверка технических требований..."
     command -v python3 &> /dev/null || { echo "Python3 не установлен. Установите Python3 и повторите попытку."; exit 1; }
     command -v pip3 &> /dev/null || { echo "pip не установлен. Установите pip и повторите попытку."; exit 1; }
     command -v git &> /dev/null || { echo "git не установлен. Установите git и повторите попытку."; exit 1; }
-    echo "Все необходимые инструменты найдены :)"
+    echo "Все необходимые инструменты найдены"
 }
 
-# Функция настройки виртуального окружения и установки зависимостей
 setup_environment() {
     echo "Настройка виртуального окружения..."
     python3 -m venv venv
-    # Активация виртуального окружения в bash (для Windows через Git Bash)
+    # (для Windows через Git Bash)
     source venv/bin/activate
 
     echo "Обновление pip..."
@@ -35,19 +32,22 @@ setup_environment() {
     pip install opencv-python numpy pynput pyautogui screeninfo requests
 }
 
-# Функция развертывания проекта
+# Развертывания проекта
 deploy_project() {
-    REPO_URL="https://github.com/AKA-Curiosity/kao-face-tracker.git"
-    PROJECT_DIR="kao-face-tracker"
+    echo "Развёртывание проекта в текущую папку..."
 
-    if [ ! -d "$PROJECT_DIR" ]; then
-        echo "Клонирование репозитория..."
-        git clone $REPO_URL
+    DEST_DIR="$(pwd)/kao-face-tracker"
+
+    if [ -d "$DEST_DIR" ]; then
+        echo "Проект уже развернут в $DEST_DIR"
     else
-        echo "Репозиторий уже существует, обновляем..."
-        cd "$PROJECT_DIR" || exit 1
-        git pull
-        cd ..
+        echo "Создание директории $DEST_DIR..."
+        mkdir -p "$DEST_DIR"
+
+        echo "Копирование файлов проекта (кроме ненужных)..."
+        rsync -av --exclude='.git' --exclude='setup.sh' --exclude='.gitignore' --exclude='LICENSE' ./ "$DEST_DIR"
+
+        echo "Проект успешно развернут в $DEST_DIR"
     fi
 }
 
@@ -64,8 +64,7 @@ main() {
     echo "Далее запустите setup.py для дополнительной настройки:"
     echo "   cd kao-face-tracker && python3 setup.py"
     echo "======================================"
-
-    # Задержка, чтобы окно не закрывалось сразу
+s
     read -p "Нажмите Enter, чтобы выйти..."
 }
 
