@@ -15,7 +15,7 @@ except ImportError:
 
 # Конфигурация обновлений
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/AKA-Curiosity/kao-face-tracker/refs/heads/main/version.txt"
-GITHUB_FILES_BASE_URL = "https://github.com/AKA-Curiosity/kao-face-tracker"
+GITHUB_FILES_BASE_URL = "https://raw.githubusercontent.com/AKA-Curiosity/kao-face-tracker/refs/heads/main/"
 
 LOCAL_VERSION_FILE = "version.txt"
 
