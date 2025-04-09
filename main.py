@@ -227,7 +227,7 @@ def update_files(remote_version):
         LOCAL_VERSION_FILE,
     ]
     for file in files_to_update:
-    remote_url = GITHUB_FILES_BASE_URL + file
+        remote_url = GITHUB_FILES_BASE_URL + file
     try:
         response = requests.get(remote_url, timeout=5)
         if response.status_code == 200:
