@@ -214,6 +214,7 @@ def update_files(remote_version):
     # Пример: список файлов, которые нужно обновить
     files_to_update = [
         "main.py",
+        "bg.png",
         "models/opencv_face_detector.pbtxt",
         "models/opencv_face_detector_uint8.pb",
         "models/deploy_gender.prototxt",
