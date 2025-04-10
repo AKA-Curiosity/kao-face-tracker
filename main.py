@@ -107,7 +107,7 @@ def highlightFace(face_net, frame, prediction, conf_threshold=0.7):
                 text_x = max(0, min(text_x, frame_w - text_size[0]))
                 text_y = max(text_size[1], min(text_y, frame_h - baseline))
                 cv2.putText(output_frame, prediction, (text_x, text_y),
-                            cv2.FONT_HERSHEY_COMPLEX, font_scale, (0, 0, 0), thickness=1, lineType=cv2.LINE_AA)
+                            cv2.FONT_HERSHEY_COMPLEX, font_scale, (255, 255, 0), thickness=1, lineType=cv2.LINE_AA)
     return output_frame, face_boxes
 
 
