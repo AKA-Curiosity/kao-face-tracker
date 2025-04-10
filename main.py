@@ -161,7 +161,7 @@ def check_dependencies():
 
 def is_internet_available(url="http://www.google.com", timeout=5):
     """
-    Простая проверка доступности интернета.
+    Проверка доступности интернета
     """
     if requests is None:
         return False
@@ -174,7 +174,7 @@ def is_internet_available(url="http://www.google.com", timeout=5):
 
 def read_local_version():
     """
-    Читает локальную версию из файла version.txt.
+    Читает локальную версию
     """
     if not os.path.exists(LOCAL_VERSION_FILE):
         print("Локальный файл версии не найден.")
@@ -191,7 +191,7 @@ def read_local_version():
 
 def fetch_remote_version():
     """
-    Получает версию с GitHub.
+    Получает версию с GitHub
     """
     if requests is None:
         return None
@@ -210,14 +210,8 @@ def fetch_remote_version():
 
 
 def update_files(remote_version):
-    """
-    Простейший механизм обновления файлов.
-    Если обнаружена новая версия, обновляет локальные файлы.
-    Здесь подразумевается, что обновляются только файлы из корня и папка models.
-    Реальную логику можно расширить.
-    """
     print("Начало обновления файлов до версии", remote_version)
-    # Пример: список файлов, которые нужно обновить. Расширьте при необходимости.
+    # Пример: список файлов, которые нужно обновить
     files_to_update = [
         "main.py",
         "models/opencv_face_detector.pbtxt",
@@ -262,8 +256,6 @@ def main():
         print("Интернет-соединение отсутствует. Запуск в оффлайн-режиме.")
 
     # Шаг 3. Запуск основной логики
-    # Можно запустить другой функционал или основное приложение
-    # В данном случае — запуск распознавания лиц
     global predictions, prediction
     predictions = [
         "Ты найдешь новых друзей!",
